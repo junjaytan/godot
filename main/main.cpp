@@ -1374,6 +1374,7 @@ bool Main::start() {
 		}
 	}
 
+	// Junjay note: sets the variant "editor/active" string to true or false
 	GLOBAL_DEF("editor/active", editor);
 
 	String main_loop_type;

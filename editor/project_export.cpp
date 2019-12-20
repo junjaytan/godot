@@ -795,14 +795,16 @@ void ProjectExportDialog::_fill_resource_tree() {
 	Ref<EditorExportPreset> current = get_current_preset();
 	if (current.is_null())
 		return;
-
+	// This gets the export filter enum
 	EditorExportPreset::ExportFilter f = current->get_export_filter();
 
 	if (f == EditorExportPreset::EXPORT_ALL_RESOURCES) {
 		return;
 	}
 
+	// This shows the "Resources to Export" label, I believe
 	include_label->show();
+	// This shows the dropdown list.
 	include_margin->show();
 
 	TreeItem *root = include_files->create_item();
@@ -811,14 +813,15 @@ void ProjectExportDialog::_fill_resource_tree() {
 }
 
 bool ProjectExportDialog::_fill_tree(EditorFileSystemDirectory *p_dir, TreeItem *p_item, Ref<EditorExportPreset> &current, bool p_only_scenes) {
-
-	p_item->set_icon(0, get_icon("folder", "FileDialog"));
+	// This is where the magic happens...
+	p_item->set_icon(0, get_icon("folder", "FileDialog"));  // This sets the folder icon
 	p_item->set_text(0, p_dir->get_name() + "/");
 
 	bool used = false;
 	for (int i = 0; i < p_dir->get_subdir_count(); i++) {
 
 		TreeItem *subdir = include_files->create_item(p_item);
+		// TODO: Try adding the same things as for files below to see if we can get checkbox
 		if (_fill_tree(p_dir->get_subdir(i), subdir, current, p_only_scenes)) {
 			used = true;
 		} else {
@@ -1131,6 +1134,7 @@ ProjectExportDialog::ProjectExportDialog() {
 	resources_vb->set_name(TTR("Resources"));
 
 	export_filter = memnew(OptionButton);
+	// Junjay Note: This adds the possible choises in Export mode
 	export_filter->add_item(TTR("Export all resources in the project"));
 	export_filter->add_item(TTR("Export selected scenes (and dependencies)"));
 	export_filter->add_item(TTR("Export selected resources (and dependencies)"));

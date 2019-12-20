@@ -45,6 +45,7 @@
 #include "editor_node.h"
 #include "editor_settings.h"
 #include "scene/resources/resource_format_text.h"
+#include <iostream>
 
 static int _get_pad(int p_alignment, int p_n) {
 
@@ -131,6 +132,7 @@ void EditorExportPreset::set_export_filter(ExportFilter p_filter) {
 }
 
 EditorExportPreset::ExportFilter EditorExportPreset::get_export_filter() const {
+	std::cout << "get_export_filter() function" << std::endl;
 	return export_filter;
 }
 
@@ -680,6 +682,7 @@ EditorExportPlatform::ExportNotifier::~ExportNotifier() {
 
 Error EditorExportPlatform::export_project_files(const Ref<EditorExportPreset> &p_preset, EditorExportSaveFunction p_func, void *p_udata, EditorExportSaveSharedObject p_so_func) {
 	//figure out paths of files that will be exported
+	std::cout << "Running export_project_files() function" << std::endl;
 	Set<String> paths;
 	Vector<String> path_remaps;
 
@@ -687,6 +690,7 @@ Error EditorExportPlatform::export_project_files(const Ref<EditorExportPreset> &
 		//find stuff
 		_export_find_resources(EditorFileSystem::get_singleton()->get_filesystem(), paths);
 	} else {
+		//TODO Probably needs a change somewhere here
 		bool scenes_only = p_preset->get_export_filter() == EditorExportPreset::EXPORT_SELECTED_SCENES;
 
 		Vector<String> files = p_preset->get_files_to_export();
@@ -1344,11 +1348,14 @@ void EditorExport::load_config() {
 		bool get_files = false;
 
 		if (export_filter == "all_resources") {
+			std::cout << "Setting export filter to all resources" << std::endl;
 			preset->set_export_filter(EditorExportPreset::EXPORT_ALL_RESOURCES);
 		} else if (export_filter == "scenes") {
+			std::cout << "Setting export filter to scenes" << std::endl;
 			preset->set_export_filter(EditorExportPreset::EXPORT_SELECTED_SCENES);
 			get_files = true;
 		} else if (export_filter == "resources") {
+			std::cout << "Setting export filter to resources" << std::endl;
 			preset->set_export_filter(EditorExportPreset::EXPORT_SELECTED_RESOURCES);
 			get_files = true;
 		}

@@ -145,6 +145,7 @@ TreeItem::TreeCellMode TreeItem::get_cell_mode(int p_column) const {
 void TreeItem::set_checked(int p_column, bool p_checked) {
 
 	ERR_FAIL_INDEX(p_column, cells.size());
+	// This actually checks the box
 	cells.write[p_column].checked = p_checked;
 	_changed_notify(p_column);
 }
