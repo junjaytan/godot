@@ -413,6 +413,7 @@ private:
 
 		Ref<Texture> checked;
 		Ref<Texture> unchecked;
+		Ref<Texture> indeterminate;
 		Ref<Texture> arrow_collapsed;
 		Ref<Texture> arrow;
 		Ref<Texture> select_arrow;

@@ -912,6 +912,7 @@ void Tree::update_cache() {
 
 	cache.checked = get_icon("checked");
 	cache.unchecked = get_icon("unchecked");
+	cache.indeterminate = get_icon("indeterminate");
 	cache.arrow_collapsed = get_icon("arrow_collapsed");
 	cache.arrow = get_icon("arrow");
 	cache.select_arrow = get_icon("select_arrow");
@@ -1261,6 +1262,7 @@ int Tree::draw_item(const Point2i &p_pos, const Point2 &p_draw_ofs, const Size2 
 					Point2i check_ofs = item_rect.position;
 					check_ofs.y += Math::floor((real_t)(item_rect.size.y - checked->get_height()) / 2);
 
+					// This logic draws the checkboxes for each file
 					if (p_item->cells[i].checked) {
 						checked->draw(ci, check_ofs);
 					} else {

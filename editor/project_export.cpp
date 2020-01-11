@@ -822,6 +822,8 @@ bool ProjectExportDialog::_fill_tree(EditorFileSystemDirectory *p_dir, TreeItem 
 
 		TreeItem *subdir = include_files->create_item(p_item);
 		// TODO: Try adding the same things as for files below to see if we can get checkbox
+		subdir->set_cell_mode(0, TreeItem::CELL_MODE_CHECK);  // junjay note: adding checkbox?
+		subdir->set_editable(0, true);
 		if (_fill_tree(p_dir->get_subdir(i), subdir, current, p_only_scenes)) {
 			used = true;
 		} else {
@@ -830,14 +832,14 @@ bool ProjectExportDialog::_fill_tree(EditorFileSystemDirectory *p_dir, TreeItem 
 	}
 
 	for (int i = 0; i < p_dir->get_file_count(); i++) {
-
+		// Somewhere here sets the checkbox for each file in the list
 		String type = p_dir->get_file_type(i);
 		if (p_only_scenes && type != "PackedScene")
 			continue;
 
 		TreeItem *file = include_files->create_item(p_item);
-		file->set_cell_mode(0, TreeItem::CELL_MODE_CHECK);
-		file->set_text(0, p_dir->get_file(i));
+		file->set_cell_mode(0, TreeItem::CELL_MODE_CHECK);  // This creates the checkbox!
+		file->set_text(0, p_dir->get_file(i));  // This sets the filename string
 
 		String path = p_dir->get_file_path(i);
 
